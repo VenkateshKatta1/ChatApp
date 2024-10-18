@@ -13,7 +13,7 @@ import { app, server } from "./Socket/socket.js";
 const __dirname = path.resolve();
 const allowedOrigins = [
   "http://localhost:5173", // Dev URL
-  "https://your-frontend-domain.com", // Production URL
+  "https://chatapp-grib.onrender.com", // Production URL
 ];
 
 dotenv.config();
