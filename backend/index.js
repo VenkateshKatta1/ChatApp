@@ -18,7 +18,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend URL/
+    origin: "http://localhost:5173",
+    origin: "https://chatapp-grib.onrender.com/login", // your frontend URL/
     credentials: true, // This allows cookies to be sent and received
   })
 );
