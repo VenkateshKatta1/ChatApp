@@ -11,6 +11,10 @@ import path from "path";
 import { app, server } from "./Socket/socket.js";
 
 const __dirname = path.resolve();
+const allowedOrigins = [
+  "http://localhost:5173", // Dev URL
+  "https://your-frontend-domain.com", // Production URL
+];
 
 dotenv.config();
 
@@ -18,9 +22,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    origin: "https://chatapp-grib.onrender.com/login", // your frontend URL/
-    credentials: true, // This allows cookies to be sent and received
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 
