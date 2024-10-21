@@ -34,20 +34,11 @@ const SideBar = ({ onSelectUser }) => {
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {
-      // Check if the message is relevant to the selected conversation
-      const isRelevant =
-        (newMessage.senderId === selectedConversation?._id &&
-          newMessage.receiverId === authUser._id) ||
-        (newMessage.receiverId === selectedConversation?._id &&
-          newMessage.senderId === authUser._id);
-
-      if (isRelevant) {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-      }
+      setNewMessageUsers(newMessage);
     });
 
     return () => socket?.off("newMessage");
-  }, [socket, selectedConversation, authUser]);
+  }, [socket, messages]);
 
   // Shows users with you chatted.
   useEffect(() => {
