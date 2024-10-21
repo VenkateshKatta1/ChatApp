@@ -10,6 +10,7 @@ import { BiLogOut } from "react-icons/bi";
 import userConversation from "../store/useConversation";
 import { useSocketContext } from "../context/socketContext";
 
+// eslint-disable-next-line react/prop-types
 const SideBar = ({ onSelectUser }) => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
@@ -219,6 +220,7 @@ const SideBar = ({ onSelectUser }) => {
                         selectedUserId === user._id ? "bg-sky-500 " : ""
                       }`}
                     >
+                      {/*Socket is Online*/}
                       <div
                         className={`avatar ${isOnline[index] ? "online" : ""}`}
                       >
