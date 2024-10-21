@@ -95,8 +95,8 @@ const SideBar = ({ onSelectUser }) => {
   // Highlights the selected user.
   const handleUserClick = (user) => {
     onSelectUser(user);
-    setSelectedUserId(user._id);
     setSelectedConversation(user);
+    setSelectedUserId(user._id);
     setNewMessageUsers("");
   };
 
@@ -175,6 +175,7 @@ const SideBar = ({ onSelectUser }) => {
                       selectedUserId === user._id ? "bg-sky-500 " : ""
                     }`}
                   >
+                    {/*Socket is Online */}
                     <div
                       className={`avatar ${isOnline[index] ? "online" : ""}`}
                     >
