@@ -17,7 +17,7 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser?._id) {
       // Ensure userId is defined before connecting
-      const newSocket = io("http://localhost:8080/", {
+      const newSocket = io("https://chatapp-grib.onrender.com/", {
         withCredentials: true,
         query: { userId: authUser._id },
       });
