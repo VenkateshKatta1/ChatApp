@@ -62,7 +62,7 @@ export const userLogin = async (req, res) => {
         .send({ success: false, message: "Invalid password" });
     }
 
-    const token = jwtToken(user._id, res);
+    jwtToken(user._id, res);
 
     return res.status(200).send({
       _id: user._id,
