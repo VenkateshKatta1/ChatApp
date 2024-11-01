@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
@@ -10,8 +11,12 @@ import { BiLogOut } from "react-icons/bi";
 import userConversation from "../store/useConversation";
 import { useSocketContext } from "../context/socketContext";
 
-// eslint-disable-next-line react/prop-types
-const SideBar = ({ onSelectUser }) => {
+const SideBar = ({
+  onSelectUser,
+  onProfileClick,
+  setShowProfileModal,
+  showProfileModal,
+}) => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,6 +36,15 @@ const SideBar = ({ onSelectUser }) => {
   const nowOnline = chatUser.map((user) => user._id);
   // User online?
   const isOnline = nowOnline.map((userId) => onlineUser.includes(userId));
+
+  const handleProfileClick = () => {
+    setShowProfileModal(true);
+    setSelectedUserId(null);
+    if (showProfileModal) {
+      setShowProfileModal(false);
+    }
+    onProfileClick(authUser);
+  };
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {
@@ -90,7 +104,6 @@ const SideBar = ({ onSelectUser }) => {
       console.log(error);
     }
   };
-  console.log(searchUser);
 
   // Highlights the selected user.
   const handleUserClick = (user) => {
@@ -98,6 +111,7 @@ const SideBar = ({ onSelectUser }) => {
     setSelectedConversation(user);
     setSelectedUserId(user._id);
     setNewMessageUsers("");
+    setShowProfileModal(false);
   };
 
   // Back from search result.
@@ -156,11 +170,12 @@ const SideBar = ({ onSelectUser }) => {
           </button>
         </form>
         <img
-          onClick={() => navigate(`/profile/${authUser?._id}`)}
+          onClick={handleProfileClick}
           src={authUser?.profilepic}
           className="self-center h-12 w-12 hover:scale-110 cursor-pointer"
         />
       </div>
+
       <div className="divider px-3"></div>
 
       {searchUser?.length > 0 ? (

@@ -7,7 +7,10 @@ const Home = () => {
   const { authUser } = useAuth();
   const [selectedUser, setSelectedUser] = useState(null);
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-  console.log(authUser);
+  const [profileData, setProfileData] = useState(null);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  // console.log(authUser);
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
@@ -19,22 +22,37 @@ const Home = () => {
     setSelectedUser(null);
   };
 
+  const handleProfileClick = (data) => {
+    setProfileData(data);
+  };
+
   return (
     <div className="flex justify-between min-w-full md:min-w-[550px] md:max-w-[65%] px-2 h-[95%] md:h-full rounded-xl shadow-lg bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
       <div className={`w-full py-2 md:flex ${isSideBarOpen ? "" : "hidden"}`}>
-        <SideBar onSelectUser={handleUserSelect} />
+        <SideBar
+          onSelectUser={handleUserSelect}
+          onProfileClick={handleProfileClick}
+          setShowProfileModal={setShowProfileModal}
+          showProfileModal={showProfileModal}
+          setIsSideBarOpen={setIsSideBarOpen}
+        />
       </div>
       <div
         className={`divider divider-horizontal px-3 md:flex ${
           isSideBarOpen ? "" : "hidden"
-        } ${selectedUser ? "block" : "hidden"}`}
+        } ${selectedUser || showProfileModal ? "block" : "hidden"}`}
       ></div>
       <div
         className={`flex-auto bg-gray-200 ${
-          selectedUser ? "" : "hidden md:flex"
+          selectedUser || showProfileModal ? "" : "hidden md:flex"
         }`}
       >
-        <MessageContainer onUserBack={handleShowSideBar} />
+        <MessageContainer
+          onUserBack={handleShowSideBar}
+          profileData={profileData}
+          setShowProfileModal={setShowProfileModal}
+          showProfileModal={showProfileModal}
+        />
       </div>
     </div>
   );

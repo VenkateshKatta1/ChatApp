@@ -70,6 +70,7 @@ export const userLogin = async (req, res) => {
       username: user.username,
       profilepic: user.profilepic,
       email: user.email,
+      createdAt: user.createdAt,
       message: "Login Successful",
     });
   } catch (error) {
