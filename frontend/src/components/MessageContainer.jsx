@@ -21,12 +21,7 @@ const MessageContainer = ({
   const { authUser } = useAuth();
   const lastMessageRef = useRef();
   const { socket } = useSocketContext();
-  const {
-    messages,
-    selectedConversation,
-    setMessages,
-    setSelectedConversation,
-  } = userConversation();
+  const { messages, selectedConversation, setMessages } = userConversation();
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {

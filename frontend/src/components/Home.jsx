@@ -1,16 +1,12 @@
 import { useState } from "react";
-import { useAuth } from "../context/useAuth";
 import MessageContainer from "./MessageContainer";
 import SideBar from "./SideBar";
 
 const Home = () => {
-  const { authUser } = useAuth();
   const [selectedUser, setSelectedUser] = useState(null);
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const [profileData, setProfileData] = useState(null);
   const [showProfileModal, setShowProfileModal] = useState(false);
-
-  // console.log(authUser);
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
